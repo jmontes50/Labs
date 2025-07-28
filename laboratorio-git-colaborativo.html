@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Laboratorio Git: Pull y Push Colaborativo</title>
+    <style>
+      body {
+        font-family: "Segoe UI", sans-serif;
+        background-color: #f9fafb;
+        color: #333;
+        line-height: 1.6;
+        padding: 20px;
+        max-width: 800px;
+        margin: auto;
+      }
+      h1,
+      h2,
+      h3 {
+        color: #2c3e50;
+      }
+      pre {
+        background-color: #f4f4f4;
+        border-left: 4px solid #ccc;
+        padding: 10px;
+        overflow-x: auto;
+      }
+      .students {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+      .student1 {
+        background-color: #b0e1ff;
+        border-left: 4px solid #3498db;
+        padding: 10px;
+        margin-bottom: 1em;
+      }
+      .student2 {
+        background-color: #fef9e7;
+        border-left: 4px solid #f1c40f;
+        padding: 10px;
+        margin-bottom: 1em;
+      }
+      .reflection,
+      .note {
+        background-color: #e998ff;
+        border-left: 4px solid #ce12f3;
+        padding: 10px;
+        margin-top: 1em;
+      }
+      .checkpoint {
+        background-color: #d4efdf;
+        border-left: 4px solid #27ae60;
+        padding: 10px;
+        margin-top: 1em;
+      }
+      code {
+        background-color: #eee;
+        padding: 2px 4px;
+        border-radius: 4px;
+        font-family: monospace;
+      }
+      .bold {
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>🧪 Laboratorio Git: Colaboración con Pull y Push</h1>
+
+    <h2>📘 Introducción</h2>
+    <p>
+      Este laboratorio está diseñado para que practiques la colaboración usando Git y GitHub con otra persona. A través de una serie de pasos prácticos, aprenderás cómo crear un repositorio, trabajar con ramas, hacer cambios y sincronizarlos correctamente usando los comandos <code>pull</code> y <code>push</code>. Es una experiencia cercana al trabajo real en equipo, y te permitirá mejorar tus habilidades técnicas y de comunicación.
+    </p>
+    <p>
+      Lo ideal es realizar este Laboratorio en duplas, considera preguntar a uno(a) de tus compañeros(as) ó a alguien que este interesado en aprender un poco de git
+    </p>
+
+    <h2>🧠 Requisitos y conceptos previos</h2>
+    <ul>
+      <li>
+        Conocer qué es Git, y qué hacen los comandos <code>init</code>,
+        <code>add</code>, <code>commit</code>, <code>push</code>,
+        <code>pull</code>, <code>clone</code>.
+      </li>
+      <li class="bold">Tener Git y una cuenta en GitHub.</li>
+      <li>
+        Git debe estar configurado (<code>git config --global user.name</code> y
+        <code>user.email</code>).
+      </li>
+    </ul>
+
+    <h2>👥 Participantes</h2>
+    <ul class="students">
+      <li>
+        <strong class="student1">Estudiante 1:</strong> Creador del repositorio.
+      </li>
+      <li><strong class="student2">Estudiante 2:</strong> Colaborador.</li>
+    </ul>
+
+    <h2>🛠️ Parte 1: Crear el proyecto</h2>
+    <div class="student1">
+      <p>
+        1. Crea una carpeta, estos comandos son para la terminal pero no hay
+        problema puedes hacer manualmente. Elije la carpeta que desees
+      </p>
+      <pre>mkdir git-lab &amp;&amp; cd git-lab</pre>
+      <p>2. Inicializa Git, en la carpeta de trabajo que hayas elegido:</p>
+      <pre>git init</pre>
+      <p>3. Crea un archivo <code>index.html</code>:</p>
+      <pre>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;&lt;head&gt;&lt;title&gt;Mi sitio&lt;/title&gt;&lt;/head&gt;
+&lt;body&gt;&lt;h1&gt;Hola mundo&lt;/h1&gt;&lt;/body&gt;
+&lt;/html&gt;</pre
+      >
+      <p>4. Haz commit:</p>
+      <pre>git add .<br>git commit -m "Primer commit con index.html"</pre>
+      <p>5. Crea repo en GitHub y enlaza, pon la ruta de tu repo creada:</p>
+      <pre>git remote add origin <i>https://github.com/tuusuario/repositorio.git</i><br>git push -u origin main</pre>
+    </div>
+
+    <h2>🔗 Parte 1.5: Invitar colaborador</h2>
+    <div class="student1">
+      <p>
+        En GitHub, ve a <strong>Settings → Collaborators</strong>, invita a
+        Estudiante 2, y espera que acepte.
+      </p>
+    </div>
+
+    <h2>🤝 Parte 2: Clonar y contribuir</h2>
+    <div class="student2">
+      <p>1. Clona el repo:</p>
+      <pre>git clone <i>https://github.com/tuusuario/repositorio.git</i></pre>
+      <p>2. Crea un nuevo archivo <code>saludo.html</code>:</p>
+      <pre>&lt;h2&gt;Hola desde Estudiante 2&lt;/h2&gt;</pre>
+      <p>3. Commit y push:</p>
+      <pre>git add saludo.html<br>git commit -m "Estudiante 2 agrega saludo"<br>git pull origin main<br>git push origin main</pre>
+    </div>
+
+    <h2>🔄 Parte 3: Estudiante 1 actualiza</h2>
+    <div class="student1">
+      <p>1. Pull y verifica:</p>
+      <pre>git pull origin main</pre>
+      <p>2. Agrega a <code>index.html</code>:</p>
+      <pre>&lt;p&gt;Cambios realizados por Estudiante 1&lt;/p&gt;</pre>
+      <p>3. Commit y push:</p>
+      <pre>git add index.html<br>git commit -m "Actualización de Estudiante 1"<br>git pull origin main<br>git push origin main</pre>
+    </div>
+
+    <h2>🔄 Parte 4: Estudiante 2 recibe cambios</h2>
+    <div class="student2">
+      <p>1. Pull:</p>
+      <pre>git pull origin main</pre>
+      <p>2. Verifica cambios en <code>index.html</code>.</p>
+    </div>
+
+    <h2>🔄 Parte 5: Más interacción</h2>
+    <div class="student2">
+      <p>1. Crear <code>ideas.html</code>:</p>
+      <pre>&lt;ul&gt;&lt;li&gt;Idea 1&lt;/li&gt;&lt;/ul&gt;</pre>
+      <p>2. Commit y push:</p>
+      <pre>git add ideas.html<br>git commit -m "Ideas por Estudiante 2"<br>git push origin main</pre>
+    </div>
+    <div class="student1">
+      <p>1. Modifica <code>index.html</code>:</p>
+      <pre>&lt;p&gt;Segunda edición de Estudiante 1&lt;/p&gt;</pre>
+      <p>2. Pull antes de hacer push:</p>
+      <pre>git pull origin main<br>git push origin main</pre>
+    </div>
+
+    <div class="reflection">
+      <h3>🤔 Reflexión, piensa acerca de esto</h3>
+      <ul>
+        <li>¿Qué pasa si haces <code>push</code> sin <code>pull</code>?</li>
+        <li>¿Cómo se resuelve un conflicto?</li>
+        <li>¿Qué aprendiste del flujo colaborativo?</li>
+      </ul>
+    </div>
+  </body>
+</html>

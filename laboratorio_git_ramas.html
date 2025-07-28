@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Laboratorio Git: Ramas por Función</title>
+    <style>
+      body {
+        font-family: "Segoe UI", sans-serif;
+        background-color: #f9fafb;
+        color: #333;
+        line-height: 1.6;
+        padding: 20px;
+        max-width: 800px;
+        margin: auto;
+      }
+      h1,
+      h2,
+      h3 {
+        color: #2c3e50;
+      }
+      pre {
+        background-color: #f4f4f4;
+        border-left: 4px solid #ccc;
+        padding: 10px;
+        overflow-x: auto;
+      }
+      .students {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+      .student1 {
+        background-color: #b0e1ff;
+        border-left: 4px solid #3498db;
+        padding: 10px;
+        margin-bottom: 1em;
+      }
+      .student2 {
+        background-color: #fef9e7;
+        border-left: 4px solid #f1c40f;
+        padding: 10px;
+        margin-bottom: 1em;
+      }
+      .reflection,
+      .note {
+        background-color: #e998ff;
+        border-left: 4px solid #ce12f3;
+        padding: 10px;
+        margin-top: 1em;
+      }
+      .checkpoint {
+        background-color: #d4efdf;
+        border-left: 4px solid #27ae60;
+        padding: 10px;
+        margin-top: 1em;
+      }
+      code {
+        background-color: #eee;
+        padding: 2px 4px;
+        border-radius: 4px;
+        font-family: monospace;
+      }
+      .bold {
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>🧪 Laboratorio Git: Flujo de Trabajo por Ramas de Función</h1>
+
+    <h2>📘 Introducción</h2>
+    <p>
+      En este laboratorio aprenderás a trabajar con
+      <strong>ramas por función</strong>, una metodología muy usada en proyectos
+      colaborativos. Cada funcionalidad se desarrolla en una rama independiente,
+      lo que permite trabajar sin afectar la rama principal <code>main</code>.
+      <strong>No usaremos Pull Requests</strong>, en su lugar, simularemos una revisión en
+      conjunto y luego haremos el <code>merge</code> manualmente.
+    </p>
+
+    <p class="note">
+      👍 Aunque no es obligatorio, puedes leer <a href="https://www.atlassian.com/es/git/tutorials/comparing-workflows/feature-branch-workflow" target="_blank">este articulo</a> antes y/o después del laboratorio para reforzar/ampliar conceptos:
+      
+    </p>
+
+    <h2>🧠 Requisitos y conceptos previos</h2>
+    <ul>
+      <li>
+        Conocer comandos básicos de Git y haber trabajado con <code>add</code>,
+        <code>commit</code>, <code>push</code>, <code>pull</code>.
+      </li>
+      <li>
+        Conocer el uso de <code>branch</code>, <code>checkout</code> y
+        <code>merge</code>.
+      </li>
+      <li>Git y cuenta GitHub configuradas.</li>
+    </ul>
+
+    <h2>👥 Participantes</h2>
+    <ul class="students">
+      <li>
+        <strong class="student1">Estudiante 1:</strong> Responsable de crear el
+        repositorio y rama principal.
+      </li>
+      <li>
+        <strong class="student2">Estudiante 2:</strong> Desarrolla nueva
+        funcionalidad en una rama.
+      </li>
+    </ul>
+
+    <h2>🛠️ Parte 1: Crear repositorio base</h2>
+    <div class="student1">
+      <p>1. Crear carpeta y archivo principal:</p>
+      <p>
+        Crea una carpeta llamada <code>flujo-ramas</code> en tu computadora, por
+        ejemplo en tu Escritorio. Luego ábrela con tu editor de texto o gestor
+        de archivos.
+      </p>
+      <pre>
+git init
+      </pre>
+      <p>
+        Crea un archivo llamado <code>index.html</code> y escribe dentro el
+        siguiente contenido:
+      </p>
+      <pre>&lt;h1&gt;Sitio base&lt;/h1&gt;</pre>
+      <pre>
+git add .
+git commit -m "Sitio base con index.html"
+      </pre>
+
+      <p>2. Crea un repositorio público en GitHub:</p>
+      <ul>
+        <li>
+          Entra a
+          <a href="https://github.com/" target="_blank">https://github.com/</a>
+          y accede a tu cuenta.
+        </li>
+        <li>
+          Haz clic en el botón <strong>"New repository"</strong> (nuevo
+          repositorio).
+        </li>
+        <li>Coloca como nombre del repositorio: <code>flujo-ramas</code>.</li>
+        <li>Selecciona la opción <strong>Public</strong>.</li>
+        <li>
+          No marques ninguna casilla adicional (no README, .gitignore, ni
+          licencia).
+        </li>
+        <li>Haz clic en <strong>Create repository</strong>.</li>
+      </ul>
+      <p>
+        3. Luego en tu terminal de Git (por ejemplo, en VSCode o Git Bash),
+        copia y pega los siguientes comandos reemplazando
+        <code>usuario</code> por tu nombre de usuario en GitHub:
+      </p>
+      <pre>
+git remote add origin https://github.com/usuario/flujo-ramas.git
+git push -u origin main
+</pre
+      >
+    </div>
+
+    <h2>🔗 Parte 1.5: Invitar colaborador</h2>
+    <div class="student1">
+      <p>
+        En GitHub, ve a <strong>Settings → Collaborators</strong>, invita a
+        Estudiante 2, y espera que acepte.
+      </p>
+    </div>
+
+    <h2>🌿 Parte 2: Crear rama de función</h2>
+    <div class="student2">
+      <p>1. Clona el repositorio:</p>
+      <pre>
+git clone https://github.com/usuario/flujo-ramas.git
+cd flujo-ramas
+      </pre>
+      <p>2. Crea una rama para una nueva funcionalidad:</p>
+      <pre>git checkout -b formulario-contacto</pre>
+      <p>
+        <em
+          >Este comando crea una nueva rama llamada
+          <code>formulario-contacto</code> y cambia a ella automáticamente. Es
+          útil para comenzar a trabajar en una funcionalidad nueva sin afectar
+          la rama principal.</em
+        >
+      </p>
+      <p>3. Crea <code>contacto.html</code> con contenido:</p>
+      <p>
+        Crea un archivo llamado <code>contacto.html</code> y coloca el siguiente
+        contenido:
+      </p>
+      <pre>
+&lt;form&gt;&lt;input placeholder="Tu nombre" /&gt;&lt;/form&gt;</pre
+      >
+      <pre>
+git add contacto.html
+git commit -m "Agregar formulario de contacto"
+git push origin formulario-contacto
+      </pre>
+    </div>
+
+    <h2>🧑‍🤝‍🧑 Parte 3: Hacer el merge en conjunto</h2>
+    <div class="student1">
+      <p>1. Estudiante 1 cambia a la rama <code>main</code> y actualiza:</p>
+      <pre>git checkout main<br>git pull origin main</pre>
+      <p>2. Hace el merge con la rama del estudiante 2:</p>
+      <pre>git merge origin/formulario-contacto</pre>
+      <p>3. Si no hay conflictos, haz commit (si es necesario) y push:</p>
+      <pre>git push origin main</pre>
+    </div>
+
+    <h2>✨ Parte 4: Nueva funcionalidad con contenido real</h2>
+    <div class="student2">
+      <p>1. Crear una nueva rama para mostrar proyectos:</p>
+      <pre>git checkout -b seccion-proyectos</pre>
+      <p>2. Crea archivo <code>proyectos.html</code> y añade contenido:</p>
+      <p>
+        Crea un archivo llamado <code>proyectos.html</code> con el siguiente
+        contenido:
+      </p>
+      <pre>
+&lt;section&gt;&lt;h2&gt;Mis Proyectos&lt;/h2&gt;&lt;ul&gt;&lt;li&gt;Proyecto A&lt;/li&gt;&lt;/ul&gt;&lt;/section&gt;</pre
+      >
+      <pre>
+git add proyectos.html
+git commit -m "Agregar sección de proyectos con contenido"
+git push origin seccion-proyectos
+      </pre>
+    </div>
+
+    <h2>🤝 Parte 5: Fusionar nueva funcionalidad</h2>
+    <div class="student1">
+      <p>1. Cambia a <code>main</code> y actualiza:</p>
+      <pre>git checkout main<br>git pull origin main</pre>
+      <p>2. Fusiona la nueva rama:</p>
+      <pre>git merge origin/seccion-proyectos</pre>
+      <p>3. Haz push de los cambios:</p>
+      <pre>git push origin main</pre>
+    </div>
+
+    <div class="checkpoint">
+      <h3>✅ Resumen del Laboratorio</h3>
+      <p>
+        En este laboratorio, practicamos el uso de ramas por función para
+        desarrollar nuevas características sin afectar la rama principal
+        <code>main</code>. Vimos cómo crear ramas, trabajar en funcionalidades
+        específicas, y luego fusionarlas con el trabajo del resto del equipo.
+      </p>
+      <p>Trabajar con ramas por función permite:</p>
+      <ul>
+        <li>Separar el desarrollo de diferentes funcionalidades.</li>
+        <li>Evitar conflictos frecuentes entre colaboradores.</li>
+        <li>Probar nuevas ideas sin comprometer el código estable.</li>
+        <li>Mejorar la organización del flujo de trabajo colaborativo.</li>
+      </ul>
+      <p>
+        Al finalizar este ejercicio, ahora comprendes cómo se gestionan
+        múltiples ramas en un proyecto real y cómo puedes implementar esta
+        metodología en tus propios proyectos para trabajar de manera más
+        profesional y ordenada.
+      </p>
+    </div>
+  </body>
+</html>
