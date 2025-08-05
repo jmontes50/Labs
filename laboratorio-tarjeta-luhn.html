@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Laboratorio JavaScript - Validador de Tarjetas</title>
+    <style>
+      body {
+        background-color: #0f172a;
+        color: #e2e8f0;
+        font-family: "Segoe UI", sans-serif;
+        padding: 2rem;
+        line-height: 1.6;
+      }
+      h1,
+      h2,
+      h3 {
+        color: #38bdf8;
+      }
+      code,
+      pre {
+        background-color: #1e293b;
+        color: #f8fafc;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        display: block;
+        white-space: pre-wrap;
+        margin-bottom: 1rem;
+      }
+      a {
+        color: #7dd3fc;
+      }
+      hr {
+        border-color: #334155;
+        margin: 2rem 0;
+      }
+      .diagrams {
+        max-width: 200px;
+        margin: 0 auto;
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>💳 Laboratorio JavaScript: Validador de Tarjeta de Crédito</h1>
+    <p>
+      Este laboratorio está diseñado para aprender paso a paso los conceptos
+      fundamentales de JavaScript mientras construyes un validador de tarjetas
+      de crédito usando el
+      <a
+        href="https://es.wikipedia.org/wiki/Algoritmo_de_Luhn#:~:text=El%20algoritmo%20de%20Luhn%20o,cr%C3%A9dito%2C%20n%C3%BAmeros%20IMEI%2C%20etc."
+        target="_blank"
+        >algoritmo de Luhn</a
+      >.
+    </p>
+
+    <hr />
+
+    <h2>🔎 ¿Cómo funciona el algoritmo de Luhn?</h2>
+    <p>
+      El algoritmo de Luhn es una fórmula matemática que permite verificar si un
+      número de tarjeta de crédito es <strong>válido</strong>. No garantiza que
+      la tarjeta exista, pero sí ayuda a detectar errores de digitación.
+    </p>
+
+    <h3>Pasos del algoritmo:</h3>
+    <ol>
+      <li>
+        Desde el <strong>último dígito</strong> (derecha) hacia la izquierda,
+        toma <strong>cada segundo dígito</strong> (posición par desde la
+        derecha) y <strong>duplícalo</strong>.
+      </li>
+      <li>Si ese número es mayor que 9, <strong>réstale 9</strong>.</li>
+      <li>
+        Suma <strong>todos los dígitos</strong>, tanto los duplicados (ajustados
+        si fue necesario) como los que no se duplicaron.
+      </li>
+      <li>
+        Si la <strong>suma total es múltiplo de 10</strong>, el número es
+        válido.
+      </li>
+    </ol>
+
+    <h3>✅ Ejemplo válido</h3>
+    <p><strong>Número:</strong> 4539148803436467</p>
+    <pre><code>
+1. Escribimos los dígitos de derecha a izquierda: 7 6 4 6 3 4 3 0 8 8 8 4 9 3 5 4
+2. Duplicamos los dígitos en posiciones pares desde la derecha:
+   - 6×2 = 12 → 3
+   - 4×2 = 8
+   - 0×2 = 0
+   - 8×2 = 16 → 7
+   - 4×2 = 8
+   - 3×2 = 6
+   - 3×2 = 6
+   - 4×2 = 8
+3. Suma de duplicados: 46
+4. Suma de los no duplicados: 34
+5. Suma total: 80
+6. 80 % 10 === 0 → ✅ Es válida
+</code></pre>
+    <img src="./assets/luhn_valid.svg" alt="valid luhn" class="diagrams" />
+
+    <h3>❌ Ejemplo inválido</h3>
+    <p><strong>Número:</strong> 4539148803436461</p>
+    <pre><code>
+1. Solo cambia el último dígito a 1
+2. Repetimos el proceso anterior
+3. Suma total: 74
+4. 74 % 10 ≠ 0 → ❌ No es válida
+</code></pre>
+    <img src="./assets/luhn_invalid.svg" alt="invalid luhn" class="diagrams" />
+    <hr />
+
+    <h2>🎓 Objetivos de aprendizaje</h2>
+    <ul>
+      <li>Usar <strong>variables</strong> para almacenar información</li>
+      <li>
+        Comprender y aplicar <strong>tipos de datos</strong> (strings, números,
+        booleanos)
+      </li>
+      <li>Aplicar <strong>condicionales (if, else)</strong></li>
+      <li>Utilizar <strong>operadores</strong> lógicos y aritméticos</li>
+      <li>
+        Usar <strong>prompt()</strong>, <strong>console.log()</strong> y
+        <strong>alert()</strong>
+      </li>
+    </ul>
+
+    <hr />
+
+    <h2>📁 Paso 1: Crea la estructura del proyecto</h2>
+    <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;Validador de Tarjetas&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;script src="validador.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+    <h2>📄 Paso 2: Escribe pseudocódigo</h2>
+    <pre><code>// 1. Pedir al usuario el número de tarjeta
+// 2. Verificar que tenga 16 dígitos y que sean números
+// 3. Aplicar el algoritmo de Luhn paso a paso
+// 4. Mostrar si la tarjeta es válida o no
+</code></pre>
+
+    <h2>🔢 Paso 3: Solicitar el número</h2>
+    <pre><code>const tarjeta = prompt("Ingresa el número de tu tarjeta de crédito:");
+console.log("Número ingresado:", tarjeta);
+</code></pre>
+
+    <h2>✅ Paso 4: Validaciones básicas</h2>
+    <pre><code>const esNumerica = !isNaN(tarjeta);
+const longitudCorrecta = tarjeta.length === 16;
+
+console.log("¿Solo contiene números?:", esNumerica);
+console.log("¿Tiene 16 dígitos?:", longitudCorrecta);
+
+if (esNumerica && longitudCorrecta) {
+  console.log("✅ Formato válido. Ahora aplicaremos el algoritmo de Luhn...");
+} else {
+  alert("❌ Número inválido: debe contener solo dígitos y tener 16 caracteres.");
+}
+</code></pre>
+
+    <h2>🔢 Paso 5: Algoritmo de Luhn (pseudocódigo)</h2>
+    <p>
+      Busca resolver esta parte apoyandote en el pseudo código, recuerda que
+      resolver esto aplicando lo aprendido en clase y documentación reforzaria
+      muchisimo tu aprendizaje, no tengas miedo de equivocarte,
+      <a href="https://www.youtube.com/watch?v=NE_sZwG3iCg" target="_blank"
+        >es parte del proceso</a
+      >.
+    </p>
+    <pre><code>// Paso 1: Crear una variable llamada suma y asignarle 0
+// Paso 2: Recorrer la tarjeta de derecha a izquierda (del índice 15 al 0)
+// Paso 3: Por cada dígito:
+//    - Convertir el caracter a número con parseInt()
+//    - Si está en una posición par desde la derecha, duplicarlo
+//    - Si el resultado es mayor a 9, restarle 9
+//    - Sumar el resultado a la suma total
+// Paso 4: Mostrar la suma
+// Paso 5: Si la suma es múltiplo de 10, la tarjeta es válida
+</code></pre>
+
+    <h2>🤔 Reflexión guiada</h2>
+    <ol>
+      <li>¿Por qué crees que se duplican algunos dígitos y otros no?</li>
+      <li>
+        ¿Podrías explicar con tus palabras cómo sabes que una tarjeta es válida?
+      </li>
+      <li>
+        ¿Qué pasaría si olvidaras convertir el carácter con
+        <strong>parseInt()</strong>?
+      </li>
+      <li>¿Qué parte te pareció más interesante o desafiante?</li>
+    </ol>
+
+    <h2>📹 Desafío final: Reflexiona en video</h2>
+    <p>
+      <strong>Loom</strong> es una herramienta gratuita para grabar tu pantalla,
+      tu voz y tu cámara.
+    </p>
+    <p>
+      <strong>💡Objetivo:</strong> Con loom en menos de 5 minutos y apoyandote
+      en tu código responde los puntos 2 y 4 de la reflexión previa, usa tus
+      propias palabras, menciona tus puntos fuertes y partes que tengas dudas,
+      se busca que las respuestas sean genuinas.
+    </p>
+    <p>
+      <a
+        href="https://www.youtube.com/watch?v=TkTNbunuQ14&pp=ygUJbG9vbSBndWlh"
+        target="_blank"
+        >Puedes apoyarte en esta guía</a
+      >
+    </p>
+    <ol>
+      <li>
+        Crea una cuenta en
+        <a href="https://loom.com" target="_blank">loom.com</a>
+      </li>
+      <li>
+        Instala la
+        <a
+          href="https://chromewebstore.google.com/detail/loom-%E2%80%93-screen-recorder-sc/liecbddmkiiihnedobmlmillhodjkdmb"
+          target="_blank"
+          >extensión para Chrome</a
+        >
+      </li>
+      <li>Presiona el botón “Grabar”</li>
+      <li>Explica tu código y responde a las preguntas de reflexión</li>
+      <li>Comparte el enlace del video en discord</li>
+      <li>
+        Si la respuesta se ve genuina y se demuestra el aprendizaje ganan hasta
+        1 punto en su nota final
+      </li>
+    </ol>
+  </body>
+</html>
